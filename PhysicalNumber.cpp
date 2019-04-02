@@ -72,28 +72,11 @@ istream& operator >>(istream& is, PhysicalNumber& num) {
 	char temp;
 	string unitString;
 	ls >> num._size;
-	ls >> temp;
+	ls >> temp; //for [
 	ls >> unitString;
-	ls >> temp;
+	ls >> temp; //for ]
 	num._unit = unitByString(unitString);
 	return is;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

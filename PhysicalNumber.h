@@ -9,6 +9,9 @@ class PhysicalNumber{
 	Unit _unit;
 	double _size;
 
+	double& size() { return _size;}
+	Unit& unit() { return _unit;}
+
   public:
 	PhysicalNumber(double size, Unit unit);
 
@@ -30,7 +33,9 @@ class PhysicalNumber{
 	const PhysicalNumber& operator +() const {return *this;}
 	const PhysicalNumber& operator -() const {return *this;}
 
-	PhysicalNumber& operator =(const PhysicalNumber other){
+	PhysicalNumber& operator =(const PhysicalNumber other){ //as default operator
+		unit() = other.unit();
+		size() = other.size();
 		return *this;
 	}
 
@@ -41,8 +46,16 @@ class PhysicalNumber{
 	friend bool operator ==(const PhysicalNumber& a, const PhysicalNumber& b);
 	friend bool operator !=(const PhysicalNumber& a, const PhysicalNumber& b);
 
-	PhysicalNumber& operator++() {return *this;}
-	PhysicalNumber& operator++(int dummy_flag)  {return *this;}
+	PhysicalNumber& operator++() {
+		_size++;
+		return *this;
+	}
+
+	const PhysicalNumber operator++(int dummy_flag)  {
+		PhysicalNumber copy = *this;
+		_size++;
+		return copy;
+	}
 
 	friend std::ostream& operator <<(std::ostream& os, const PhysicalNumber& num);
 	friend std::istream& operator >>(std::istream& is, const PhysicalNumber& num);
