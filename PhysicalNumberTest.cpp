@@ -66,7 +66,7 @@ int main() {
     .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::CM) "1[cm]") //cm - cm
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::M) "101[cm]") // cm +m
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::KM) "1101[cm]") // cm + km 
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::M) "1100[cm]") // cm - m ?????
+    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::M) "1001[cm]") // cm - m ?????
     .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::KM) "100[cm]") // cm- km 
     .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(0, Unit::CM) "100[cm]") // cm - 0cm
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::M) "100[cm]") // cm + 0m
@@ -94,7 +94,6 @@ int main() {
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::CM) "101[km]")// km - 0cm
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::M) "101[km]")// km + 0km
     //check Incompatible dimensions
-    .CHECK_THROWS(istringstream("700[kg]") >> lengthDimTest) //?????
     .CHECK_THROWS(lengthDimTest + timeDimTest)
     .CHECK_THROWS(lengthDimTest + massDimTest)
     .CHECK_THROWS(lengthDimTest - timeDimTest)
