@@ -1,5 +1,6 @@
 #pragma once
 #include "Unit.h"
+#include <iostream>
 
 namespace ariel{
 
@@ -10,6 +11,9 @@ class PhysicalNumber{
 
   public:
 	PhysicalNumber(double size, Unit unit);
+
+	double size() const{ return _size;}
+	Unit unit() const{ return _unit;}
 
 	friend PhysicalNumber operator +(const PhysicalNumber& a, const PhysicalNumber& b);
 	friend PhysicalNumber operator -(const PhysicalNumber& a, const PhysicalNumber& b);
@@ -23,19 +27,19 @@ class PhysicalNumber{
 		return *this;
 	}
 	
-	PhysicalNumber& operator +() const;
-	PhysicalNumber& operator -() const;
+	const PhysicalNumber& operator +() const {return *this;}
+	const PhysicalNumber& operator -() const {return *this;}
 
 	PhysicalNumber& operator =(const PhysicalNumber other){
 		return *this;
 	}
 
-	//bool operator >(const PhysicalNumber& other);
-	bool operator >=(const PhysicalNumber& other);
-	bool operator <(const PhysicalNumber& other);
-	bool operator <=(const PhysicalNumber& other);
-	bool operator ==(const PhysicalNumber& other);
-	bool operator !=(const PhysicalNumber& other);
+	friend bool operator >(const PhysicalNumber& a, const PhysicalNumber& b);
+	friend bool operator >=(const PhysicalNumber& a, const PhysicalNumber& b);
+	friend bool operator <(const PhysicalNumber& a, const PhysicalNumber& b);
+	friend bool operator <=(const PhysicalNumber& a, const PhysicalNumber& b);
+	friend bool operator ==(const PhysicalNumber& a, const PhysicalNumber& b);
+	friend bool operator !=(const PhysicalNumber& a, const PhysicalNumber& b);
 
 	PhysicalNumber& operator++() {return *this;}
 	PhysicalNumber& operator++(int dummy_flag)  {return *this;}
