@@ -15,19 +15,13 @@ PhysicalNumber::PhysicalNumber(double size, Unit unit): _size(size), _unit(unit)
 PhysicalNumber operator +(const PhysicalNumber& a, const PhysicalNumber& b){
 	if (!comparable(a.unit(),b.unit()))
 		throw std::string("The physical numbers are not comparable");
-	if (a.unit() < b.unit() )
-		return PhysicalNumber(a.size() + b.size()*ratio(b.unit())/ratio(a.unit()), a.unit());
-	else
-		return PhysicalNumber(b.size() + a.size()*ratio(a.unit())/ratio(b.unit()), b.unit());
+	return PhysicalNumber(a.size() + b.size()*ratio(b.unit())/ratio(a.unit()), a.unit());
 }
 
 PhysicalNumber operator -(const PhysicalNumber& a, const PhysicalNumber& b){
 	if (!comparable(a.unit(),b.unit()))
 		throw std::string("The physical numbers are not comparable");
-	if (a.unit() < b.unit() )
-		return PhysicalNumber(a.size() - b.size()*ratio(b.unit())/ratio(a.unit()), a.unit());
-	else
-		return PhysicalNumber(b.size() - a.size()*ratio(a.unit())/ratio(b.unit()), b.unit());
+	return PhysicalNumber(a.size() - b.size()*ratio(b.unit())/ratio(a.unit()), a.unit());
 }
 
 -----------------------------------------------
@@ -70,5 +64,36 @@ bool operator !=(const PhysicalNumber& a, const PhysicalNumber& b)  {
 
 -----------------------------------------------
 
-ostream& operator <<(ostream& os, const PhysicalNumber& num) {return os;}
-istream& operator >>(istream& is, const PhysicalNumber& num) {return is;}
+ostream& operator <<(ostream& os, const PhysicalNumber& num) {
+	return os << num.size() << "[" << num.unit() << "]";
+}
+
+istream& operator >>(istream& is, PhysicalNumber& num) {
+	char temp;
+	string unitString;
+	ls >> num._size;
+	ls >> temp;
+	ls >> unitString;
+	ls >> temp;
+	num._unit = unitByString(unitString);
+	return is;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
