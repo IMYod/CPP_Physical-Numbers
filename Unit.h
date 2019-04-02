@@ -20,16 +20,22 @@ long double ratio(Unit type){
 }
 
 Unit unitByString(std::string str){
-	if (str){
-		case "cm": return Unit::CM;
-		case "m" return Unit::M;
-		case "km": return Unit::KM;
-		case "sec": return Unit::SEC;
-		case "min": return Unit::MIN;
-		case "hour": return Unit::HOUR;
-		case "g": return Unit::G;
-		case "kg": return Unit::KG;
-	}
+	if (!str.compare("cm")) //the strings are equale
+		return (Unit::CM);
+	if (!str.compare("m"))	
+		return (Unit::M);
+	if (!str.compare("km"))	
+		return (Unit::KM);
+	if (!str.compare("sec"))	
+		return (Unit::SEC);
+	if (!str.compare("min"))	
+		return (Unit::MIN);
+	if (!str.compare("hour"))
+		return (Unit::HOUR);
+	if (!str.compare("g"))	
+		return (Unit::G);
+	if (!str.compare("kg"))	
+		return (Unit::KG);
 	return Unit::TON;
 }
 
