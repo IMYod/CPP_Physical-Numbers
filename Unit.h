@@ -20,8 +20,23 @@ long double ratio(Unit type){
 	return 0;
 }
 
-bool operator ==(const Unit& a, const Unit& b); //iff they have same dimenson 
-bool operator !=(const Unit& a, const Unit& b); 
+Dimenson getDimenson(enum Unit a){
+	if (a==Unit::CM || a==Unit::M || a==Unit::KM)
+		return Dimenson::LENGTH;
+	else if (a==Unit::SEC || a==Unit::MIN || a==Unit::HOUR)
+		return Dimenson::TIME;
+	return Dimenson::WEIGHT;
+}
 
+bool comparable(const enum Unit a, const enum Unit b){
+	return (getDimenson(a) == getDimenson(b));
+}
+
+bool operator >(const enum Unit a, const enum Unit b){
+	return (ratio(a) > ratio(b));
+}
+bool operator <(const enum Unit a, const enum Unit b){
+	return (ratio(a) < ratio(b));
+}
 
 }
