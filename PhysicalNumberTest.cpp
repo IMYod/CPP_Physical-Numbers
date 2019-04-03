@@ -25,6 +25,7 @@ int main() {
     PhysicalNumber d(30, Unit::MIN);
 
     PhysicalNumber lengthDimTest (1 ,Unit::CM);
+    PhysicalNumber lengthDimTest2 (2 ,Unit::M);
     PhysicalNumber timeDimTest (1 ,Unit::SEC);
     PhysicalNumber massDimTest (1 ,Unit::G);
 
@@ -57,7 +58,7 @@ int main() {
 
     /*OUR TESTS*/
     
-    //*****Test the lenght dimenstion*******//
+    //*****Test the LENGTH dimenstion*******//
     
     .setname("Test the lenght dimenstion")
     //CM
@@ -66,7 +67,7 @@ int main() {
     .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::CM) "1[cm]") //cm - cm
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::M) "101[cm]") // cm +m
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::KM) "1101[cm]") // cm + km 
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::M) "1001[cm]") // cm - m ?????
+    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::M) "1001[cm]") // cm - m 
     .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::KM) "100[cm]") // cm- km 
     .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(0, Unit::CM) "100[cm]") // cm - 0cm
     .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::M) "100[cm]") // cm + 0m
@@ -98,8 +99,26 @@ int main() {
     .CHECK_THROWS(lengthDimTest + massDimTest)
     .CHECK_THROWS(lengthDimTest - timeDimTest)
     .CHECK_THROWS(lengthDimTest - massDimTest)
-
-
+    //check Comparison
+    .CHECK_EQUAL (lengthDimTest < lengthDimTest2 ,TRUE)
+    .CHECK_EQUAL (lengthDimTest > lengthDimTest2 ,FALSE)
+    .CHECK_EQUAL (lengthDimTest <= lengthDimTest2 ,TRUE)
+    .CHECK_EQUAL (lengthDimTest >= lengthDimTest2 ,FALSE)
+    .CHECK_EQUAL (lengthDimTest == lengthDimTest2 ,FALSE)
+    .CHECK_EQUAL (lengthDimTest != lengthDimTest2 ,TRUE) 
+    .CHECK_THROWS (lengthDimTest < timeDimTest)
+    .CHECK_THROWS (lengthDimTest > timeDimTest)
+    .CHECK_THROWS (lengthDimTest <= timeDimTest)
+    .CHECK_THROWS (lengthDimTest >= massDimTest)
+    .CHECK_THROWS (lengthDimTest == massDimTest)
+    .CHECK_THROWSL (lengthDimTest != massDimTest)
+    .CHECK_OK( lengthDimTest2++)
+    .CHECK_OUTPUT(lengthDimTest2, "3[m]")
+      
+     //*****Test the TIME dimenstion*******//
+      
+      
+      
       .setname("...")
 
       .print(cout, /*show_grade=*/false);
