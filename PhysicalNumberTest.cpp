@@ -112,8 +112,12 @@ int main() {
     .CHECK_THROWS (lengthDimTest >= massDimTest)
     .CHECK_THROWS (lengthDimTest == massDimTest)
     .CHECK_THROWSL (lengthDimTest != massDimTest)
-    .CHECK_OK( lengthDimTest2++)
+    .CHECK_OK( lengthDimTest2++) / ++
     .CHECK_OUTPUT(lengthDimTest2, "3[m]")
+    .CHECK_OUTPUT(-a, "-3[m]") // -a
+    .CHECK_OUTPUT(+a, "3[km]") // +a
+    .CHECK_THROWS (-+a)
+    .CHECK_THROWS (+-----+a)
       
      //*****Test the TIME dimenstion*******//
       
