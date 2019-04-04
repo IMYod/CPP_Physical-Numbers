@@ -72,8 +72,7 @@ class PhysicalNumber{
 	}
 
 	friend std::ostream& operator <<(std::ostream& os, const PhysicalNumber& num);
-	friend std::istream& operator >>(std::istream& is, const PhysicalNumber& num);
-
+	friend std::istream& operator >>(std::istream& is, PhysicalNumber& num);
 };
 
 }

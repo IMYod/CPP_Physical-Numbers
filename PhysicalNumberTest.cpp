@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <sstream>
+
 using std::cout, std::endl, std::istringstream;
 #include "PhysicalNumber.h"
 using ariel::PhysicalNumber, ariel::Unit;
@@ -28,6 +29,7 @@ int main() {
     PhysicalNumber lengthDimTest2 (2 ,Unit::M);
     PhysicalNumber timeDimTest (1 ,Unit::SEC);
     PhysicalNumber massDimTest (1 ,Unit::G);
+    bool tempB;
 
 
 
@@ -63,61 +65,61 @@ int main() {
     .setname("Test the lenght dimenstion")
     //CM
     .CHECK_OUTPUT(lengthDimTest, "1[cm]") 
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::CM) "2[cm]") // cm + cm
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::CM) "1[cm]") //cm - cm
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::M) "101[cm]") // cm +m
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::KM) "1101[cm]") // cm + km 
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::M) "1001[cm]") // cm - m 
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::KM) "100[cm]") // cm- km 
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(0, Unit::CM) "100[cm]") // cm - 0cm
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::M) "100[cm]") // cm + 0m
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::KM) "100[cm]") // cm + 0km
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::CM)), "2[cm]") // cm + cm
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::CM)), "1[cm]") //cm - cm
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::M)), "101[cm]") // cm +m
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::KM)), "1101[cm]") // cm + km 
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::M)), "1001[cm]") // cm - m 
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::KM)), "100[cm]") // cm- km 
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(0, Unit::CM)), "100[cm]") // cm - 0cm
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(0, Unit::M)), "100[cm]") // cm + 0m
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(0, Unit::KM)), "100[cm]") // cm + 0km
     //M
     .CHECK_OK(istringstream("1[m]") >> lengthDimTest)
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::M) "2[m]") // m + m
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::M) "1[m]")// m - m
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::CM) "1.01[m]") // m + cm
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::KM) "1001.01[m]") // m + km
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::CM) "1101[m]") // m - cm
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::KM) "101[m]") // m - km
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(0, Unit::M) "101[m]") // m - 0m
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::CM) "101[m]")// m - 0cm
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::KM) "101[m]")// m + 0km
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::M)), "2[m]") // m + m
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::M)), "1[m]")// m - m
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::CM)), "1.01[m]") // m + cm
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::KM)), "1001.01[m]") // m + km
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::CM)), "1101[m]") // m - cm
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::KM)), "101[m]") // m - km
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(0, Unit::M)), "101[m]") // m - 0m
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(0, Unit::CM)), "101[m]")// m - 0cm
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(0, Unit::KM)), "101[m]")// m + 0km
     //KM
     .CHECK_OK(istringstream("1[km]") >> lengthDimTest)
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::KM) "2[km]") // km + km
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::KM) "1[km]")// km - km
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::CM) "1.00001[km]") // km + cm
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(1, Unit::M) "1.00101[km]") // km + m
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::CM) "1.00100[km]") // km - cm
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(1, Unit::M) "1[km]") // km - m
-    .CHECK_OUTPUT(lengthDimTest -= PhysicalNumber(0, Unit::KM) "101[km]") // km - 0km
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::CM) "101[km]")// km - 0cm
-    .CHECK_OUTPUT(lengthDimTest += PhysicalNumber(0, Unit::M) "101[km]")// km + 0km
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::KM)), "2[km]") // km + km
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::KM)), "1[km]")// km - km
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::CM)), "1.00001[km]") // km + cm
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(1, Unit::M)), "1.00101[km]") // km + m
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::CM)), "1.00100[km]") // km - cm
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(1, Unit::M)), "1[km]") // km - m
+    .CHECK_OUTPUT((lengthDimTest -= PhysicalNumber(0, Unit::KM)), "101[km]") // km - 0km
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(0, Unit::CM)), "101[km]")// km - 0cm
+    .CHECK_OUTPUT((lengthDimTest += PhysicalNumber(0, Unit::M)), "101[km]")// km + 0km
     //check Incompatible dimensions
     .CHECK_THROWS(lengthDimTest + timeDimTest)
     .CHECK_THROWS(lengthDimTest + massDimTest)
     .CHECK_THROWS(lengthDimTest - timeDimTest)
     .CHECK_THROWS(lengthDimTest - massDimTest)
     //check Comparison
-    .CHECK_EQUAL (lengthDimTest < lengthDimTest2 ,TRUE)
+/*    .CHECK_EQUAL (lengthDimTest < lengthDimTest2 ,TRUE)
     .CHECK_EQUAL (lengthDimTest > lengthDimTest2 ,FALSE)
     .CHECK_EQUAL (lengthDimTest <= lengthDimTest2 ,TRUE)
     .CHECK_EQUAL (lengthDimTest >= lengthDimTest2 ,FALSE)
     .CHECK_EQUAL (lengthDimTest == lengthDimTest2 ,FALSE)
-    .CHECK_EQUAL (lengthDimTest != lengthDimTest2 ,TRUE) 
-    .CHECK_THROWS (lengthDimTest < timeDimTest)
-    .CHECK_THROWS (lengthDimTest > timeDimTest)
-    .CHECK_THROWS (lengthDimTest <= timeDimTest)
-    .CHECK_THROWS (lengthDimTest >= massDimTest)
-    .CHECK_THROWS (lengthDimTest == massDimTest)
-    .CHECK_THROWSL (lengthDimTest != massDimTest)
-    .CHECK_OK( lengthDimTest2++) / ++
+    .CHECK_EQUAL (lengthDimTest != lengthDimTest2 ,TRUE) */
+    .CHECK_THROWS (tempB = lengthDimTest < timeDimTest)
+    .CHECK_THROWS (tempB = lengthDimTest > timeDimTest)
+    .CHECK_THROWS (tempB = lengthDimTest <= timeDimTest)
+    .CHECK_THROWS (tempB = lengthDimTest >= massDimTest)
+    .CHECK_THROWS (tempB = lengthDimTest == massDimTest)
+    .CHECK_THROWS (tempB = lengthDimTest != massDimTest)
+//    .CHECK_OK( lengthDimTest2++) / ++ //????? not compiled
     .CHECK_OUTPUT(lengthDimTest2, "3[m]")
     .CHECK_OUTPUT(-a, "-3[m]") // -a
     .CHECK_OUTPUT(+a, "3[km]") // +a
-    .CHECK_THROWS (-+a)
-    .CHECK_THROWS (+-----+a)
+    .CHECK_THROWS (-+a) //????? why not? mayne check if -(+a)==a
+//    .CHECK_THROWS (+-----+a) //?????  not compiled
       
      //*****Test the TIME dimenstion*******//
       
