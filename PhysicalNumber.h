@@ -68,6 +68,18 @@ class PhysicalNumber{
 		return copy;
 	}
 
+	PhysicalNumber& operator--() {
+		_size--;
+		return *this;
+	}
+
+	const PhysicalNumber operator--(int dummy_flag)  {
+		PhysicalNumber copy = *this;
+		_size--;
+		return copy;
+	}
+
+
 	friend std::ostream& operator <<(std::ostream&, const PhysicalNumber&);
 	friend std::istream& operator >>(std::istream&, PhysicalNumber&);
 };
