@@ -41,8 +41,8 @@ class PhysicalNumber{
 	PhysicalNumber& operator +=(const PhysicalNumber&);
 	PhysicalNumber& operator -=(const PhysicalNumber&);
 	
-	const PhysicalNumber& operator +() const {return *this;}
-	const PhysicalNumber& operator -() const {return *this;}
+	const PhysicalNumber operator +() const;
+	const PhysicalNumber operator -() const;
 
 	PhysicalNumber& operator =(const PhysicalNumber other){ //as default operator
 		unit() = other.unit();
