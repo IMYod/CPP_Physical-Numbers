@@ -8,7 +8,10 @@
 * link https://github.com/erelsgl/ariel-cpp-5779/blob/master/04-const-friend-operators/homework/readme.pdf
 * @author Yoav and Elad.
 */
-#pragma once
+
+#ifndef PHYSICALNUMBER_H
+#define PHYSICALNUMBER_H
+
 #include "Unit.h"
 #include <iostream>
 
@@ -32,17 +35,11 @@ class PhysicalNumber{
 	/**** overloading opertors for physical numbers *******/
 	/*****************************************************/
 	
-	friend PhysicalNumber operator +(const PhysicalNumber& a, const PhysicalNumber& b);
-	friend PhysicalNumber operator -(const PhysicalNumber& a, const PhysicalNumber& b);
+	friend const PhysicalNumber operator +(const PhysicalNumber&, const PhysicalNumber&);
+	friend const PhysicalNumber operator -(const PhysicalNumber&, const PhysicalNumber&);
 
-	PhysicalNumber& operator +=(const PhysicalNumber other){
-		*this = (*this + other);	
-		return *this;
-	}
-	PhysicalNumber& operator -=(const PhysicalNumber other){
-		*this = (*this - other);
-		return *this;
-	}
+	PhysicalNumber& operator +=(const PhysicalNumber&);
+	PhysicalNumber& operator -=(const PhysicalNumber&);
 	
 	const PhysicalNumber& operator +() const {return *this;}
 	const PhysicalNumber& operator -() const {return *this;}
@@ -53,12 +50,12 @@ class PhysicalNumber{
 		return *this;
 	}
 	
-	friend bool operator >(const PhysicalNumber& a, const PhysicalNumber& b);
-	friend bool operator >=(const PhysicalNumber& a, const PhysicalNumber& b);
-	friend bool operator <(const PhysicalNumber& a, const PhysicalNumber& b);
-	friend bool operator <=(const PhysicalNumber& a, const PhysicalNumber& b);
-	friend bool operator ==(const PhysicalNumber& a, const PhysicalNumber& b);
-	friend bool operator !=(const PhysicalNumber& a, const PhysicalNumber& b);
+	friend bool operator >(const PhysicalNumber&, const PhysicalNumber&);
+	friend bool operator >=(const PhysicalNumber&, const PhysicalNumber&);
+	friend bool operator <(const PhysicalNumber&, const PhysicalNumber&);
+	friend bool operator <=(const PhysicalNumber&, const PhysicalNumber&);
+	friend bool operator ==(const PhysicalNumber&, const PhysicalNumber&);
+	friend bool operator !=(const PhysicalNumber&, const PhysicalNumber&);
 
 	PhysicalNumber& operator++() {
 		_size++;
@@ -71,8 +68,10 @@ class PhysicalNumber{
 		return copy;
 	}
 
-	friend std::ostream& operator <<(std::ostream& os, const PhysicalNumber& num);
-	friend std::istream& operator >>(std::istream& is, PhysicalNumber& num);
+	friend std::ostream& operator <<(std::ostream&, const PhysicalNumber&);
+	friend std::istream& operator >>(std::istream&, PhysicalNumber&);
 };
 
 }
+
+#endif
