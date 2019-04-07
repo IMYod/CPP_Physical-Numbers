@@ -51,7 +51,6 @@ PhysicalNumber& PhysicalNumber::operator +=(const PhysicalNumber& b){
 PhysicalNumber& PhysicalNumber::operator -=(const PhysicalNumber& b){
 	if (!comparable(this->unit(),b.unit()))
 		throw std::string("The physical numbers are not comparable");	
-	std::cout << b.size() << " - " << this->size() << " = ?" << std::endl;
 	this->size() -= b.size()*ratio(b.unit())/ratio(this->unit());
 	return *this;
 }
