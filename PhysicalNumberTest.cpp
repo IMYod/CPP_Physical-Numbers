@@ -106,24 +106,24 @@ int main() {
     .CHECK_THROWS(lengthDimTest - timeDimTest)
     .CHECK_THROWS(lengthDimTest - massDimTest)
     //check Comparison
-/*    .CHECK_EQUAL (lengthDimTest < lengthDimTest2 ,TRUE)
-    .CHECK_EQUAL (lengthDimTest > lengthDimTest2 ,FALSE)
-    .CHECK_EQUAL (lengthDimTest <= lengthDimTest2 ,TRUE)
-    .CHECK_EQUAL (lengthDimTest >= lengthDimTest2 ,FALSE)
-    .CHECK_EQUAL (lengthDimTest == lengthDimTest2 ,FALSE)
-    .CHECK_EQUAL (lengthDimTest != lengthDimTest2 ,TRUE) */
+    .CHECK_EQUAL (lengthDimTest > lengthDimTest2 ,true)
+    .CHECK_EQUAL (lengthDimTest < lengthDimTest2 ,false)
+    .CHECK_EQUAL (lengthDimTest >= lengthDimTest2 ,true)
+    .CHECK_EQUAL (lengthDimTest <= lengthDimTest2 ,false)
+    .CHECK_EQUAL (lengthDimTest == lengthDimTest2 ,false)
+    .CHECK_EQUAL (lengthDimTest != lengthDimTest2 ,true) 
     .CHECK_THROWS (tempB = lengthDimTest < timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest > timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest <= timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest >= massDimTest)
     .CHECK_THROWS (tempB = lengthDimTest == massDimTest)
     .CHECK_THROWS (tempB = lengthDimTest != massDimTest)
-//    .CHECK_OK( lengthDimTest2++) / ++ //????? not compiled
-    .CHECK_OUTPUT(lengthDimTest2, "2[m]")
+    .CHECK_OK( lengthDimTest2++)
+    .CHECK_OUTPUT(lengthDimTest2, "3[m]")
     .CHECK_OUTPUT(-a, "-1700[kg]") // -a
     .CHECK_OUTPUT(+a, "1700[kg]") // +a
     .CHECK_OUTPUT(+-a, "1700[kg]") // +a
-//    .CHECK_THROWS (+-----+a) //?????  not compiled
+
       
  //*****Test the TIME dimenstion*******//
     
@@ -143,9 +143,9 @@ int main() {
     .CHECK_OK(istringstream("1[min]") >> timeDimTest)
     .CHECK_OUTPUT((timeDimTest += PhysicalNumber(1, Unit::MIN)), "2[min]") // min + min
     .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(1, Unit::MIN)), "1[min]")// min - min
-    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(1, Unit::SEC)), "1.01666667[min]") // min + sec
-    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(1, Unit::HOUR)), "61.01666667[min]") // min + hour
-    .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(1, Unit::SEC)), "61[min]") // min - sec
+    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(3, Unit::SEC)), "1.05[min]") // min + sec
+    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(1, Unit::HOUR)), "61.05[min]") // min + hour
+    .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(3, Unit::SEC)), "61[min]") // min - sec
     .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(1, Unit::HOUR)), "1[min]") // min - hour
     .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(0, Unit::MIN)), "1[min]") // min - 0min
     .CHECK_OUTPUT((timeDimTest += PhysicalNumber(0, Unit::SEC)), "1[min]")// min - 0sec
@@ -154,10 +154,10 @@ int main() {
     .CHECK_OK(istringstream("1[hour]") >> timeDimTest)
     .CHECK_OUTPUT((timeDimTest += PhysicalNumber(1, Unit::HOUR)), "2[hour]") // hour + hour
     .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(1, Unit::HOUR)), "1[hour]")// hour - hour
-    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(1, Unit::SEC)), "1.000277777778[hour]") // hour + sec
-    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(1, Unit::MIN)), "1.016944444478[hour]") // hour + min
-    .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(1, Unit::SEC)), "1.0166666667[hour]") // hour - sec
-    .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(1, Unit::MIN)), "1[hour]") // hour - min
+    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(90, Unit::SEC)), "1.025[hour]") // hour + sec
+    .CHECK_OUTPUT((timeDimTest += PhysicalNumber(6, Unit::MIN)), "1.125[hour]") // hour + min
+    .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(90, Unit::SEC)), "1.1[hour]") // hour - sec
+    .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(6, Unit::MIN)), "1[hour]") // hour - min
     .CHECK_OUTPUT((timeDimTest -= PhysicalNumber(0, Unit::HOUR)), "1[hour]") // hour - 0hour
     .CHECK_OUTPUT((timeDimTest += PhysicalNumber(0, Unit::SEC)), "1[hour]")// hour - 0sec
     .CHECK_OUTPUT((timeDimTest += PhysicalNumber(0, Unit::MIN)), "1[hour]")// hour + 0min
@@ -167,22 +167,22 @@ int main() {
     .CHECK_THROWS(timeDimTest - massDimTest)
     .CHECK_THROWS(timeDimTest - lengthDimTest)
     //check Comparison
-    /*.CHECK_EQUAL (timeDimTest < timeDimTest2 ,TRUE)
-    .CHECK_EQUAL (timeDimTest > timeDimTest2 ,FALSE)
-    .CHECK_EQUAL (timeDimTest <= timeDimTest2 ,TRUE)
-    .CHECK_EQUAL (timeDimTest >= timeDimTest2 ,FALSE)
-    .CHECK_EQUAL (timeDimTest == timeDimTest2 ,FALSE)
-    .CHECK_EQUAL (timeDimTest != timeDimTest2 ,TRUE) */
+    .CHECK_EQUAL (timeDimTest > timeDimTest2 ,true)
+    .CHECK_EQUAL (timeDimTest < timeDimTest2 ,false)
+    .CHECK_EQUAL (timeDimTest >= timeDimTest2 ,true)
+    .CHECK_EQUAL (timeDimTest <= timeDimTest2 ,false)
+    .CHECK_EQUAL (timeDimTest == timeDimTest2 ,false)
+    .CHECK_EQUAL (timeDimTest != timeDimTest2 ,true) 
     .CHECK_THROWS (tempB = lengthDimTest < timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest > timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest <= timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest >= massDimTest)
     .CHECK_THROWS (tempB = lengthDimTest == massDimTest)
     .CHECK_THROWS (tempB = lengthDimTest != massDimTest)
-//     .CHECK_OK( timeDimTest++) / ++ //????? not compiled
-    .CHECK_OUTPUT(timeDimTest, "1[hour]")
-    .CHECK_OUTPUT(-timeDimTest, "-1[hour]") // -a
-    .CHECK_OUTPUT(+timeDimTest, "1[hour]") // +a      
+     .CHECK_OK( timeDimTest++) 
+    .CHECK_OUTPUT(timeDimTest, "2[hour]")
+    .CHECK_OUTPUT(-timeDimTest, "-2[hour]") // -a
+    .CHECK_OUTPUT(+timeDimTest, "2[hour]") // +a      
       
 	//*****Test the MASS dimenstion*******//
 	
@@ -226,12 +226,12 @@ int main() {
     .CHECK_THROWS(massDimTest - timeDimTest)
     .CHECK_THROWS(massDimTest - lengthDimTest)
     //check Comparison
-    /*.CHECK_EQUAL (massDimTest < massDimTest2 ,TRUE)
-    .CHECK_EQUAL (massDimTest > massDimTest2 ,FALSE)
-    .CHECK_EQUAL (massDimTest <= massDimTest2 ,TRUE)
-    .CHECK_EQUAL (massDimTest >= massDimTest2 ,FALSE)
-    .CHECK_EQUAL (massDimTest == massDimTest2 ,FALSE)
-    .CHECK_EQUAL (massDimTest != massDimTest2 ,TRUE) */
+    .CHECK_EQUAL (massDimTest > massDimTest2 ,true)
+    .CHECK_EQUAL (massDimTest < massDimTest2 ,false)
+    .CHECK_EQUAL (massDimTest >= massDimTest2 ,true)
+    .CHECK_EQUAL (massDimTest <= massDimTest2 ,false)
+    .CHECK_EQUAL (massDimTest == massDimTest2 ,false)
+    .CHECK_EQUAL (massDimTest != massDimTest2 ,true) 
     .CHECK_THROWS (tempB = lengthDimTest < timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest > timeDimTest)
     .CHECK_THROWS (tempB = lengthDimTest <= timeDimTest)
