@@ -93,25 +93,79 @@ bool ariel::operator !=(const PhysicalNumber& a, const PhysicalNumber& b)  {
 	return (ratio(a.unit())*a.size() != ratio(b.unit())*b.size());
 }
 
+
 /*-----------------------------------------------*/
+
 
 ostream& ariel::operator <<(ostream& os, const PhysicalNumber& num) {
 	return os << num.size() << "[" << num.unit() << "]";
 }
 
-istream& ariel::operator >> (istream& is, PhysicalNumber& num) {
+static istream& getAndCheckIsToUnit(istream& input, Unit& new_unit) {
+	string str;
+	input >> str;
+	if (!str.compare("cm]")) //the strings are equale
+		new_unit = (Unit::CM);
+	else if (!str.compare("m]"))	
+		new_unit = (Unit::M);
+	else if (!str.compare("km]"))	
+		new_unit = (Unit::KM);
+	else if (!str.compare("sec]"))	
+		new_unit = (Unit::SEC);
+	else if (!str.compare("min]"))	
+		new_unit = (Unit::MIN);
+	else if (!str.compare("hour]"))
+		new_unit = (Unit::HOUR);
+	else if (!str.compare("g]"))	
+		new_unit = (Unit::G);
+	else if (!str.compare("kg]"))	
+		new_unit = (Unit::KG);
+	else if (!str.compare("ton]"))
+		new_unit = (Unit::TON);
+	else input.setstate(std::ios::failbit);
+	return input;
+}
 
-	string unitString;
-	char ch;
-	is >> num._size >> ch >> unitString >> ch;	
+static istream& getAndCheckNextCharIs(istream& input, char expectedChar) {
+    char actualChar;
+    input >> actualChar;
+    if (!input)
+	return input;
 
-/*	is >> num._size;
-	is >> temp; //for [
-	is >> unitString;
-	is >> temp; //for ]*/
+    if (actualChar!=expectedChar) 
+        // failbit is for format error
+        input.setstate(std::ios::failbit);
+    return input;
+}
 
-	num.unit() = unitByString(unitString);
-	return is;
+istream& ariel::operator>> (istream& input, PhysicalNumber& num) {
+    //---------------------------------------------
+    // Checks format, with rewind on failure.
+    //---------------------------------------------
+
+	double new_size;
+	Unit new_unit;
+
+	// remember place for rewinding
+	std::ios::pos_type startPosition = input.tellg();
+
+	if ( (!(input >> new_size))		||
+	(!getAndCheckNextCharIs(input,'['))	||
+	(!getAndCheckIsToUnit(input, new_unit)) )
+	{
+
+	        // rewind on error
+	        auto errorState = input.rdstate(); // remember error state
+	        input.clear(); // clear error so seekg will work
+	        input.seekg(startPosition); // rewind
+	        input.clear(errorState); // set back the error flag
+	}
+	else {
+        	num.size() = new_size;
+		num.unit() = new_unit;
+	}
+
+	return input;
 }
 
 /*-----------------------------------------------*/
@@ -150,28 +204,6 @@ bool ariel::comparable(const enum ariel::Unit a, const enum ariel::Unit b){
 	return (getUnitID(a) == getUnitID(b));
 }
 
-enum Unit ariel::unitByString(std::string str){
-	if (!str.compare("cm]")) //the strings are equale
-		return (Unit::CM);
-	if (!str.compare("m]"))	
-		return (Unit::M);
-	if (!str.compare("km]"))	
-		return (Unit::KM);
-	if (!str.compare("sec]"))	
-		return (Unit::SEC);
-	if (!str.compare("min]"))	
-		return (Unit::MIN);
-	if (!str.compare("hour]"))
-		return (Unit::HOUR);
-	if (!str.compare("g]"))	
-		return (Unit::G);
-	if (!str.compare("kg]"))	
-		return (Unit::KG);
-	if (!str.compare("ton]"))
-		return (Unit::TON);
-	throw string ("Input exception");
-}
-
 inline std::ostream& operator << (std::ostream &os, const enum Unit u){
 	switch (u){
 		case Unit::CM: return os << "cm";
@@ -185,11 +217,3 @@ inline std::ostream& operator << (std::ostream &os, const enum Unit u){
 		case Unit::TON: return os << "ton";
 	}
 }
-
-/*
-bool ariel::operator >(const enum Unit a, const enum Unit b){
-	return (ratio(a) > ratio(b));
-}
-bool ariel::operator <(const enum Unit a, const enum Unit b){
-	return (ratio(a) < ratio(b));
-}*/
