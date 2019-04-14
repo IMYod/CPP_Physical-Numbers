@@ -16,14 +16,10 @@ PhysicalNumber::PhysicalNumber(double size, Unit unit): _size(size), _unit(unit)
 /*----------------------------------------------*/
 
 const PhysicalNumber PhysicalNumber::operator +() const {
-	if (this->size() >= 0)
-		return PhysicalNumber(this->size(), this->unit());
-	return PhysicalNumber(0-this->size(), this->unit());
+	return PhysicalNumber(this->size(), this->unit());
 }
 
 const PhysicalNumber PhysicalNumber::operator -() const {
-	if (this->size() <= 0)
-		return PhysicalNumber(this->size(), this->unit());
 	return PhysicalNumber(0-this->size(), this->unit());
 }
 
